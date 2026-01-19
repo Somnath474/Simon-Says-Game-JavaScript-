@@ -8,7 +8,8 @@ let highestScore = 0;
 
 let h2 = document.querySelector("h2");
 
-document.addEventListener("keypress", function () {
+// Start game
+document.addEventListener("keydown", function () {
     if (!started) {
         started = true;
         levelUp();
@@ -17,14 +18,14 @@ document.addEventListener("keypress", function () {
 
 function gameFlash(btn) {
     btn.classList.add("flash");
-    setTimeout(function () {
+    setTimeout(() => {
         btn.classList.remove("flash");
     }, 250);
 }
 
 function userFlash(btn) {
     btn.classList.add("userflash");
-    setTimeout(function () {
+    setTimeout(() => {
         btn.classList.remove("userflash");
     }, 250);
 }
@@ -34,9 +35,9 @@ function levelUp() {
     level++;
     h2.innerText = `Level ${level}`;
 
-    let randIdx = Math.floor(Math.random() * 4);
+    let randIdx = Math.floor(Math.random() * btns.length);
     let randColor = btns[randIdx];
-    let randBtn = document.querySelector(`.${randColor}`);
+    let randBtn = document.querySelector(`#${randColor}`);
 
     gameSeq.push(randColor);
     gameFlash(randBtn);
@@ -49,7 +50,7 @@ function checkAns(idx) {
         }
     } else {
         document.body.style.backgroundColor = "red";
-        let finalScore = level;
+        let finalScore = level - 1;
 
         if (finalScore > highestScore) {
             highestScore = finalScore;
@@ -57,10 +58,11 @@ function checkAns(idx) {
 
         setTimeout(() => {
             document.body.style.backgroundColor = "";
-            h2.innerHTML = `Game Over! Your score was <b>${finalScore}</b><br>Highest Score: <b>${highestScore}</b><br>Press any key to restart`;
+            h2.innerHTML = `Game Over! Your score was <b>${finalScore}</b><br>
+            Highest Score: <b>${highestScore}</b><br>
+            Press any key to restart`;
+            resetGame();
         }, 200);
-
-        resetGame();
     }
 }
 
@@ -70,6 +72,7 @@ function btnPress() {
 
     let userColor = btn.getAttribute("id");
     userSeq.push(userColor);
+
     checkAns(userSeq.length - 1);
 }
 
