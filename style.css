@@ -4,6 +4,22 @@ body{
     font-family: Arial, Helvetica, sans-serif;
     background-color: #f4f4f4;
 }
+.btn-container{
+    display: grid;
+    grid-template-columns: repeat(2, 150px);
+    gap: 20px;
+    justify-content: center;
+}
+
+.btn{
+    height: 150px;
+    width: 150px;
+    border-radius: 20%;
+    border: 5px solid black;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+}
 
 /* Headings */
 h1{
